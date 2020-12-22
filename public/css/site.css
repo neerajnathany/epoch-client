@@ -740,12 +740,12 @@ body {
     color: #ffffff77; }
   @media screen and (min-width: 700px) {
     .main {
-      padding: 2.75% 0 4%; }
+      padding: 2.75% 2.75% 4%; }
       .main-head {
         margin-bottom: 3.5%; }
       .main-content {
         display: inline-block;
-        width: 67%;
+        width: 68.5vw;
         vertical-align: top;
         margin-right: 2.75%; } }
 
@@ -838,9 +838,9 @@ body {
         margin-top: 10px; } }
 
 .group {
-  margin-bottom: 9%; }
+  margin-bottom: 6%; }
   .group-title {
-    color: #fff;
+    color: #ffffff77;
     font-size: 1.2em;
     font-weight: 700;
     margin-bottom: 4.5%; }
@@ -852,7 +852,7 @@ body {
       color: #ffffff77; }
   @media screen and (min-width: 700px) {
     .group {
-      margin-bottom: 4.5%; }
+      margin-bottom: 3%; }
       .group-title {
         margin-bottom: 3.25%; } }
   @media screen and (min-width: 1000px) {
@@ -962,3 +962,70 @@ body {
         display: inline-block;
         vertical-align: top;
         padding: 0 2vw; } }
+
+.group-email {
+  position: relative;
+  display: inline-block;
+  width: 16vw;
+  height: 12vw;
+  margin: 0 1.5vw 1.5vw 0; }
+  .group-email:nth-child(4n) {
+    margin-right: 0; }
+  .group-email:nth-child(4n+1):nth-last-child(-n+4), .group-email:nth-child(4n+1):nth-last-child(-n+4) ~ * {
+    margin-bottom: 0; }
+
+.item-email {
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  padding: 1.3vw 1.4vw;
+  background-color: #000;
+  border-radius: 5%;
+  position: absolute;
+  left: 0; }
+  .item-email:first-child {
+    z-index: 50;
+    border: 1px solid rgba(33, 144, 255, 0.5); }
+  .item-email:not(:first-child) {
+    background-color: rgba(33, 144, 255, 0.3); }
+    .item-email:not(:first-child) * {
+      display: none; }
+  .item-email:nth-child(2) {
+    transform: scale(0.9) translate(-56.67%, 0);
+    top: 1vw;
+    left: 50%; }
+  .item-email:nth-child(3) {
+    transform: scale(0.81) translate(-62.6%, 0);
+    top: 2vw;
+    left: 50%;
+    background-color: rgba(33, 144, 255, 0.3); }
+
+.email-from {
+  font-size: 0.8em;
+  color: #2190ff;
+  vertical-align: top; }
+
+.email-time {
+  font-weight: 100;
+  font-size: 0.8em;
+  color: #ffffff77;
+  float: right; }
+
+.email-subject {
+  margin: 0.3vw 0 0.75vw;
+  font-weight: 600;
+  font-size: 1.2em;
+  line-height: 1.2em; }
+
+.email-body {
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9em;
+  line-height: 1.25em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  /* number of lines to show */
+  -webkit-box-orient: vertical; }

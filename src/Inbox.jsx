@@ -31,30 +31,19 @@ class Inbox extends Component {
                 {
                     this.state.emails.filter(m=>{
                         return ['email','broadcast'].includes(m.type);
-                    }).filter(r=>{
-                        return r.response === null;
                     }).sort((a,b)=>{
                         return b.time.timestamp - a.time.timestamp;
+                    }).filter(r=>{
+                        return r.response === null;
                     }).map(e=>{
                         return (
-                            <div>
-                                <span>{e.subject.text}</span>
-                                {this.state.emails.filter(f=>{
-                                    return f.response === e._id;
+                            <div>                                
+                                {this.state.emails.filter(s=>{
+                                    return s.subject.Id === e.subject.Id
                                 }).map(v=>{
-                                    return (
-                                        <span>
-                                            <span>{v.subject.text}</span>
-                                            {this.state.emails.filter(d=>{
-                                                return d.response === v._id;
-                                            }).map(o=>{
-                                                return <span>{o.subject.text}</span>
-                                            })}
-                                        </span>
-                                    )
+                                    return <span>{v.subject.text}</span>
                                 })}
-                            </div>
-                        )
+                        </div>)
                     })
                 }
             </div>

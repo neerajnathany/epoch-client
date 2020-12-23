@@ -66,7 +66,7 @@ body{
 		}
 		&-content{
 			display: inline-block;
-			width: 68.5vw;
+			width: 70vw;
 			vertical-align: top;
 			margin-right: 2.75%;
 		}
@@ -196,6 +196,83 @@ body{
 		.group-title{
 			color: $lighter-white;
 		}
+	}
+	&-sender{
+		display: inline-block;
+		&.sender{
+			&-0{
+				.email-card{
+					&:first-child{
+						border-color: rgba($cobalt,0.5);
+					}
+					&:not(:first-child){
+						background-color: rgba($cobalt,0.2);
+					}
+				}
+				.email-from{
+					color: $cobalt;
+				}
+			}
+			&-1{
+				.email-card{
+					&:first-child{
+						border-color: rgba($yellow,0.5);
+					}
+					&:not(:first-child){
+						background-color: rgba($yellow,0.3);
+					}
+				}
+				.email-from{
+					color: $yellow;
+				}
+			}
+			&-2{
+				.email-card{
+					&:first-child{
+						border-color: rgba($yellow,0.5);
+					}
+					&:not(:first-child){
+						background-color: rgba($yellow,0.3);
+					}
+				}
+				.email-from{
+					color: $yellow;
+				}
+			}
+			&-3{
+				.email-card{
+					&:first-child{
+						border-color: rgba($orange,0.5);
+					}
+					&:not(:first-child){
+						background-color: rgba($orange,0.3);
+					}
+				}
+				.email-from{
+					color: $orange;
+				}
+			}
+			&-4{
+				.email-card{
+					&:first-child{
+						border-color: rgba($seagreen,0.9);
+					}
+					&:not(:first-child){
+						background-color: rgba($seagreen,0.3);
+					}
+				}
+				.email-from{
+					color: $seagreen;
+				}
+			}
+		}
+	}
+	&-email{
+		position: relative;
+		display: inline-block;
+		width: 16vw;
+		height: 12vw;
+		margin: 0 1.5vw 1.5vw 0;		
 	}
 	@media screen and (min-width: 700px) {
 		margin-bottom: 3%;
@@ -352,24 +429,8 @@ body{
 	}
 }
 
-.group{
-	&-email{
-		position: relative;
-		display: inline-block;
-		width: 16vw;
-		height: 12vw;
-		margin: 0 1.5vw 1.5vw 0;
-		&:nth-child(4n){
-			margin-right: 0;
-		}
-		&:nth-child(4n+1):nth-last-child(-n+4),&:nth-child(4n+1):nth-last-child(-n+4)~*{
-			margin-bottom:0;
-		}
-	}
-}
-
-.item{
-	&-email{
+.email{
+	&-card{
 		overflow: hidden;
 		cursor: pointer;
 		width: 100%;
@@ -380,11 +441,9 @@ body{
 		position: absolute;
 		left: 0;
 		&:first-child{
-			z-index: 50;
-			border: 1px solid rgba($cobalt,0.5);
+			z-index: 50;			
 		}
-		&:not(:first-child){
-			background-color: rgba($cobalt,0.3);
+		&:not(:first-child){			
 			*{display: none;}
 		}
 		&:nth-child(2){
@@ -396,15 +455,10 @@ body{
 			transform: scale(0.81) translate(-62.6%,0);
 			top: 2vw;
 			left: 50%;
-			background-color: rgba($cobalt,0.3);
 		}
 	}
-}
-
-.email{
 	&-from{
 		font-size: 0.8em;
-		color: $cobalt;	
 		vertical-align: top;	
 	}
 	&-time{

@@ -5,7 +5,7 @@ class EmailItem extends Component {
     render() {
         var email = this.props.email;
         return ( 
-            <div class="item-email">
+            <div className="email-card">
                 <div>
                     <span className="email-from">{email.from.name}</span>
                     <span className="email-time">{email.time.display}</span>

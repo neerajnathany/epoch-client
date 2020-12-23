@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
 import Group from './components/Group';
+import Alert from './components/Alert';
+import Promotion from './components/Promotion';
+import Transaction from './components/Transaction';
 import axios from 'axios';
 
 class Inbox extends Component {
@@ -16,27 +19,11 @@ class Inbox extends Component {
         this.setState({emails:response.data});
     }
 
-    getEmails = (form) => {
+    getContent = (form) => {
         return this.state.emails.filter(m=>{
             return m.type === form;
         }).sort((a,b)=>{
             return b.time.timestamp - a.time.timestamp;
-        }).map(e=>{
-            return e.subject.Id;
-        }).filter((s,index,self)=>{
-            return self.indexOf(s) === index;
-        }).map(u=>{
-            return (
-                <div>                                
-                    {this.state.emails.filter(m=>{
-                        return m.subject.Id === u
-                    }).sort((j1,j2)=>{
-                        return j2.time.timestamp - j1.time.timestamp;
-                    }).map(v=>{
-                        return <span>{v.subject.text}</span>
-                    })}
-                </div>
-            )
         })
     };
 
@@ -50,13 +37,21 @@ class Inbox extends Component {
                         <div className="main-head">
                             <h2 className="main-title">Emails</h2>
                         </div>
-                        <Group content={this.state.emails.filter(e=>{
-                            return e.type === 'email';
-                        })}/>
-                        <Group content={this.state.emails.filter(b=>{
-                            return b.type === 'broadcast';
-                        })} title="Broadcasts"/>
+                        <Group content={this.getContent('email')}/>
+                        <Group content={this.getContent('broadcast')} title="Broadcasts"/>
                     </div>
+                    <aside className="panel">
+                        <div className="main-head">
+                            <h2 className="main-title">Everything else</h2>
+                        </div>
+                        <div className="alert">
+                            {this.getContent('alert').map(a=>{
+                                return <Alert alert={a}/>
+                            })}
+                        </div>
+                        <Promotion content={this.getContent('promotion')} />
+                        <Transaction bill={this.getContent('bill')} receipt={this.getContent('transaction')} order={this.getContent('status')}/>
+                    </aside>
                 </main>
             </div>
         );

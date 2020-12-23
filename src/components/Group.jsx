@@ -5,9 +5,7 @@ class Group extends Component {
     state = {  };
 
     getEmails = (content) => {
-        return content.sort((a,b)=>{
-            return b.time.timestamp - a.time.timestamp;
-        }).map(f => {
+        return content.map(f => {
             return content.filter(n=>{
                 return n.response === f._id
             }).length === 0 ? f.from.address : null;

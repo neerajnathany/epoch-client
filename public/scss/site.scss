@@ -60,15 +60,15 @@ body{
 		color: $lighter-white;
 	}
 	@media screen and (min-width: 700px) {		
-		padding: 2.75% 2.75% 4%;
+		padding: 2.75vw 0 4vw 2.75vw;
 		&-head{
-			margin-bottom: 3.5%;
+			margin-bottom: 2vw;
 		}
 		&-content{
 			display: inline-block;
-			width: 70vw;
 			vertical-align: top;
-			margin-right: 2.75%;
+			width: 70vw;
+			margin-right: 2.5vw;
 		}
 	}
 }
@@ -169,11 +169,8 @@ body{
 	}
 	@media screen and (min-width: 700px) {
 		display: inline-block;
-		width: 24.75%;
+		width: 24.75vw;
 		vertical-align: top;
-		margin: 0 2.75%;
-		position: sticky;
-		top: 2.75vw;
 		&-button{
 			margin-right: 1.25*$std-padding;
 			margin-top: 1.25*$std-padding;
@@ -186,7 +183,7 @@ body{
 	&-title{
 		color: $lighter-white;
 		font-size: 1.2em;
-		font-weight: 700;
+		font-weight: 400;
 		margin-bottom: 4.5%;
 	}
 	&.off{
@@ -204,65 +201,60 @@ body{
 				.email-card{
 					&:first-child{
 						border-color: rgba($cobalt,0.5);
-					}
-					&:not(:first-child){
-						background-color: rgba($cobalt,0.2);
-					}
-				}
-				.email-from{
-					color: $cobalt;
+						.email-from{
+							color: $cobalt;
+						}
+					}					
 				}
 			}
 			&-1{
 				.email-card{
 					&:first-child{
 						border-color: rgba($yellow,0.5);
-					}
-					&:not(:first-child){
-						background-color: rgba($yellow,0.3);
-					}
-				}
-				.email-from{
-					color: $yellow;
+						.email-from{
+							color: $yellow;
+						}
+					}					
 				}
 			}
 			&-2{
 				.email-card{
 					&:first-child{
 						border-color: rgba($yellow,0.5);
-					}
-					&:not(:first-child){
-						background-color: rgba($yellow,0.3);
-					}
-				}
-				.email-from{
-					color: $yellow;
+						.email-from{
+							color: $yellow;
+						}
+					}					
 				}
 			}
 			&-3{
 				.email-card{
 					&:first-child{
 						border-color: rgba($orange,0.5);
-					}
-					&:not(:first-child){
-						background-color: rgba($orange,0.3);
-					}
-				}
-				.email-from{
-					color: $orange;
+						.email-from{
+							color: $orange;
+						}
+					}					
 				}
 			}
 			&-4{
 				.email-card{
 					&:first-child{
-						border-color: rgba($seagreen,0.9);
-					}
-					&:not(:first-child){
-						background-color: rgba($seagreen,0.3);
-					}
+						border-color: rgba($seagreen,1);
+						.email-from{
+							color: $seagreen;
+						}
+					}					
 				}
-				.email-from{
-					color: $seagreen;
+			}
+			&-5{
+				.email-card{
+					&:first-child{
+						border-color: rgba($red,1);
+						.email-from{
+							color: $red;
+						}
+					}					
 				}
 			}
 		}
@@ -272,17 +264,17 @@ body{
 		display: inline-block;
 		width: 16vw;
 		height: 12vw;
-		margin: 0 1.5vw 1.5vw 0;		
+		margin: 0 1.5vw 1.4vw 0;		
 	}
 	@media screen and (min-width: 700px) {
-		margin-bottom: 3%;
+		margin-bottom: 0.6vw;
 		&-title{
-			margin-bottom: 3.25%;
+			margin-bottom: 3%;
 		}
 	}
 	@media screen and (min-width: 1000px) {
 		&-title{
-			margin-bottom: 2%;
+			margin-bottom: 1vw;
 		}
 	}
 }
@@ -426,62 +418,5 @@ body{
 				padding: 0 2vw;
 			}
 		}
-	}
-}
-
-.email{
-	&-card{
-		overflow: hidden;
-		cursor: pointer;
-		width: 100%;
-		height: 100%;
-		padding: 1.3vw 1.4vw;
-		background-color: $black;
-		border-radius: 5%;
-		position: absolute;
-		left: 0;
-		&:first-child{
-			z-index: 50;			
-		}
-		&:not(:first-child){			
-			*{display: none;}
-		}
-		&:nth-child(2){
-			transform: scale(0.9) translate(-56.67%,0);
-			top: 1vw;
-			left: 50%;
-		}
-		&:nth-child(3){
-			transform: scale(0.81) translate(-62.6%,0);
-			top: 2vw;
-			left: 50%;
-		}
-	}
-	&-from{
-		font-size: 0.8em;
-		vertical-align: top;	
-	}
-	&-time{
-		font-weight: 100;
-		font-size: 0.8em;
-		color: $lighter-white;
-		float: right;
-	}
-	&-subject{
-		margin: 0.3vw 0 0.75vw;
-		font-weight: 600;
-		font-size: 1.2em;
-		line-height: 1.2em;
-	}
-	&-body{
-		font-weight: 300;
-		color: rgba($light-white,0.6);
-		font-size: 0.9em;
-		line-height: 1.25em;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 4; /* number of lines to show */
-		-webkit-box-orient: vertical;
 	}
 }

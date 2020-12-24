@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Promotion extends Component {
     state = {  }
 
-    getGenres = (content,gClick) =>{
+    getGenres = (content, gClick) =>{
         return content.map(p=>{
             return p.genre;
         }).filter((a,i,self)=>{
@@ -11,8 +11,8 @@ class Promotion extends Component {
         }).map(g=>{
             return (
                 <div className="genre-card" onClick={()=> gClick(content.filter(e=>{
-                    return e.type === g;
-                }))}>
+                    return e.genre === g;
+                }),g)}>
                     <img className="genre-thumbnail" src={"assets/"+g+".jpg"} alt={g}/>
                     <h6 className="genre-name">{g}</h6>
                 </div>

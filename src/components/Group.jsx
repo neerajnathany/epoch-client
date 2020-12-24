@@ -25,7 +25,7 @@ class Group extends Component {
                             return self.indexOf(s) === index;
                         }).map(u=>{
                             return (
-                                <div className="group-email">   
+                                <div className="group-email" onClick={()=>this.props.eClick(content.filter(m=>{return m.subject.Id === u}))}>   
                                     {content.filter(m=>{
                                         return m.subject.Id === u
                                     }).sort((k,l)=>{

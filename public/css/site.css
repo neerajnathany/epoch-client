@@ -444,8 +444,7 @@ textarea {
   left: 0; }
   .email-card:first-child {
     background-color: #000;
-    z-index: 50;
-    border-style: solid; }
+    z-index: 50; }
   .email-card:not(:first-child) {
     background-color: rgba(0, 0, 0, 0.3); }
   .email-card:nth-child(2) {
@@ -459,19 +458,19 @@ textarea {
     .email-card:nth-child(3) + * {
       display: none; }
 
-.email-meta, .alert-meta, .order-meta {
+.email-meta, .alert-meta, .order-meta, .promo-meta, .thread-meta {
   display: flex; }
 
-.email-from, .alert-from, .order-subject {
+.email-from, .alert-from, .order-subject, .promo-from, .thread-from {
   font-size: 0.8em; }
 
-.email-time, .alert-time, .order-time {
+.email-time, .alert-time, .order-time, .promo-time, .thread-time {
   font-weight: 100;
   font-size: 0.8em;
   color: #ffffff77;
   margin-left: auto; }
 
-.email-subject {
+.email-subject, .promo-subject {
   margin: 0.4vw 0 0.75vw;
   font-weight: 600;
   font-size: 1.2em;
@@ -499,7 +498,8 @@ textarea {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     background-color: #552d1b;
-    padding: 0.9vw 1vw; }
+    padding: 0.9vw 1vw;
+    transition: all 0.1s ease-in-out; }
     .alert-card:first-child {
       background-color: #572e61; }
     .alert-card:nth-child(2) {
@@ -508,6 +508,10 @@ textarea {
       background-color: #004487; }
     .alert-card:last-child {
       margin-bottom: 0; }
+    .alert-card.true {
+      display: block; }
+    .alert-card.false {
+      display: none; }
   .alert-body {
     margin-top: 0.5vw;
     font-weight: 300;
@@ -532,25 +536,6 @@ textarea {
     border: none;
     z-index: 4; }
 
-.order-card {
-  background-color: #000;
-  padding: 1vw 1.1vw;
-  width: 100%;
-  border-radius: 8px; }
-
-.order-body {
-  margin-top: 0.5vw;
-  line-height: 1.1em; }
-  .order-body h1 {
-    color: #fff;
-    margin-bottom: 0.4vw; }
-  .order-body h2, .order-body h3 {
-    font-size: 0.8em;
-    margin-bottom: 0.3vw; }
-  .order-body h5 {
-    display: inline-block;
-    color: #ffae00; }
-
 .genre {
   width: 22vw;
   margin-bottom: 2vw; }
@@ -563,7 +548,8 @@ textarea {
     position: relative;
     background-color: #000;
     border-radius: 8px;
-    overflow: hidden; }
+    overflow: hidden;
+    cursor: pointer; }
     .genre-card:nth-child(3n) {
       margin-right: 0; }
     .genre-card:nth-child(3n+1):nth-last-child(-n+3), .genre-card:nth-child(3n+1):nth-last-child(-n+3) ~ * {
@@ -601,6 +587,25 @@ textarea {
   .tran-name {
     font-size: 0.9em; }
 
+.order-card {
+  background-color: #000;
+  padding: 1vw 1.1vw;
+  width: 100%;
+  border-radius: 8px; }
+
+.order-body {
+  margin-top: 0.5vw;
+  line-height: 1.1em; }
+  .order-body h1 {
+    color: #fff;
+    margin-bottom: 0.4vw; }
+  .order-body h2, .order-body h3 {
+    font-size: 0.8em;
+    margin-bottom: 0.3vw; }
+  .order-body h5 {
+    display: inline-block;
+    color: #ffae00; }
+
 .view-box {
   margin-bottom: 8%; }
 
@@ -635,26 +640,22 @@ textarea {
 
 .pop-layer {
   position: fixed;
+  display: flex;
+  align-items: center;
   background: rgba(0, 0, 0, 0.75);
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: 51;
   transition: all 0.08s ease-in-out; }
 
-.pop-modal {
-  position: fixed;
-  background-color: #ddd;
-  color: #1f1f1f;
-  width: 50%;
-  top: 5%;
-  left: 25%;
-  max-height: 90%;
-  overflow: scroll;
-  border-radius: 10px;
-  padding: 2.5% 3%;
-  z-index: 3; }
+.pop-modal, .genre-modal, .thread-modal {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  padding: 2.5% 0;
+  z-index: 52; }
 
 .pop-section, .article-section {
   font-size: 0.9em;
@@ -668,8 +669,8 @@ textarea {
   .pop-section:hover, .article-section:hover {
     background-color: #d42d2d; }
 
-.pop-title, .article-title {
-  margin-bottom: 2%;
+.pop-title, .genre-title, .thread-title, .article-title {
+  margin-bottom: 1.5vw;
   font-weight: 900;
   font-size: 2.1em;
   letter-spacing: -1px;
@@ -761,8 +762,65 @@ textarea {
     color: #ddd; }
 
 @media screen and (min-width: 700px) {
-  .pop-modal {
+  .pop-modal, .genre-modal, .thread-modal {
     border-radius: 12px; } }
+
+.genre-wrapper {
+  width: 45%;
+  margin: 0 auto; }
+
+.genre-title span {
+  text-transform: capitalize;
+  color: #ffae00; }
+
+.promo-card, .thread-card {
+  background-color: #1f1f1f;
+  padding: 1.9vw 2vw;
+  margin-bottom: 1.5vw;
+  border-radius: 7.2px; }
+
+.thread-wrapper {
+  width: 45%;
+  margin: 0 auto; }
+
+.thread-title {
+  color: #ffae00; }
+
+.thread-card {
+  line-height: 1.4em;
+  position: relative; }
+
+.thread-from {
+  font-size: 1em; }
+  .thread-from > span {
+    color: #2190ff; }
+
+.thread-to > span {
+  color: #2190ff; }
+
+.thread-cc > span:first-child {
+  color: #2190ff; }
+
+.thread-time {
+  font-size: 1em; }
+
+.thread-body {
+  margin-top: 1vw; }
+
+.email-action {
+  position: absolute;
+  right: calc(-5*8px - 1vw);
+  top: 0; }
+
+.email-each {
+  display: block;
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.75vw;
+  border: none;
+  text-decoration: none;
+  background-color: #383838; }
 
 .article-view {
   width: 44vw;
@@ -1019,27 +1077,27 @@ body {
     display: inline-block; }
     .group-sender.sender-0 .email-card:first-child {
       border-color: rgba(33, 144, 255, 0.5); }
-      .group-sender.sender-0 .email-card:first-child .email-from, .group-sender.sender-0 .email-card:first-child .alert-from, .group-sender.sender-0 .email-card:first-child .order-subject {
+      .group-sender.sender-0 .email-card:first-child .email-from, .group-sender.sender-0 .email-card:first-child .alert-from, .group-sender.sender-0 .email-card:first-child .order-subject, .group-sender.sender-0 .email-card:first-child .promo-from, .group-sender.sender-0 .email-card:first-child .thread-from {
         color: #2190ff; }
     .group-sender.sender-1 .email-card:first-child {
       border-color: rgba(255, 174, 0, 0.5); }
-      .group-sender.sender-1 .email-card:first-child .email-from, .group-sender.sender-1 .email-card:first-child .alert-from, .group-sender.sender-1 .email-card:first-child .order-subject {
+      .group-sender.sender-1 .email-card:first-child .email-from, .group-sender.sender-1 .email-card:first-child .alert-from, .group-sender.sender-1 .email-card:first-child .order-subject, .group-sender.sender-1 .email-card:first-child .promo-from, .group-sender.sender-1 .email-card:first-child .thread-from {
         color: #ffae00; }
     .group-sender.sender-2 .email-card:first-child {
       border-color: rgba(255, 174, 0, 0.5); }
-      .group-sender.sender-2 .email-card:first-child .email-from, .group-sender.sender-2 .email-card:first-child .alert-from, .group-sender.sender-2 .email-card:first-child .order-subject {
+      .group-sender.sender-2 .email-card:first-child .email-from, .group-sender.sender-2 .email-card:first-child .alert-from, .group-sender.sender-2 .email-card:first-child .order-subject, .group-sender.sender-2 .email-card:first-child .promo-from, .group-sender.sender-2 .email-card:first-child .thread-from {
         color: #ffae00; }
     .group-sender.sender-3 .email-card:first-child {
       border-color: rgba(163, 86, 51, 0.5); }
-      .group-sender.sender-3 .email-card:first-child .email-from, .group-sender.sender-3 .email-card:first-child .alert-from, .group-sender.sender-3 .email-card:first-child .order-subject {
+      .group-sender.sender-3 .email-card:first-child .email-from, .group-sender.sender-3 .email-card:first-child .alert-from, .group-sender.sender-3 .email-card:first-child .order-subject, .group-sender.sender-3 .email-card:first-child .promo-from, .group-sender.sender-3 .email-card:first-child .thread-from {
         color: #a35633; }
     .group-sender.sender-4 .email-card:first-child {
       border-color: #00a187; }
-      .group-sender.sender-4 .email-card:first-child .email-from, .group-sender.sender-4 .email-card:first-child .alert-from, .group-sender.sender-4 .email-card:first-child .order-subject {
+      .group-sender.sender-4 .email-card:first-child .email-from, .group-sender.sender-4 .email-card:first-child .alert-from, .group-sender.sender-4 .email-card:first-child .order-subject, .group-sender.sender-4 .email-card:first-child .promo-from, .group-sender.sender-4 .email-card:first-child .thread-from {
         color: #00a187; }
     .group-sender.sender-5 .email-card:first-child {
       border-color: #d84242; }
-      .group-sender.sender-5 .email-card:first-child .email-from, .group-sender.sender-5 .email-card:first-child .alert-from, .group-sender.sender-5 .email-card:first-child .order-subject {
+      .group-sender.sender-5 .email-card:first-child .email-from, .group-sender.sender-5 .email-card:first-child .alert-from, .group-sender.sender-5 .email-card:first-child .order-subject, .group-sender.sender-5 .email-card:first-child .promo-from, .group-sender.sender-5 .email-card:first-child .thread-from {
         color: #d84242; }
   .group-email {
     position: relative;

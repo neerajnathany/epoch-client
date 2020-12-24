@@ -4,11 +4,13 @@ import Group from './components/Group';
 import Alert from './components/Alert';
 import Promotion from './components/Promotion';
 import Transaction from './components/Transaction';
+import GenreModal from './components/GenreModal';
+import ThreadModal from './components/ThreadModal';
 import axios from 'axios';
 
 class Inbox extends Component {
 
-    state = { emails:[] };
+    state = { emails:[], genreList: [], genre: null, emailList:[] };
 
     componentDidMount(){
         this.getInbox();
@@ -27,6 +29,9 @@ class Inbox extends Component {
         })
     };
 
+    showGenre = (list,genre) => {this.setState({genreList: list, genre:genre});}
+    showThread = (thread) => {this.setState({emailList: thread});}
+    clearItem = () => {this.setState({genreList: [], genre:null, emailList: []});}
 
     render() { 
         return ( 
@@ -37,8 +42,8 @@ class Inbox extends Component {
                         <div className="main-head">
                             <h2 className="main-title">Emails</h2>
                         </div>
-                        <Group content={this.getContent('email')}/>
-                        <Group content={this.getContent('broadcast')} title="Broadcasts"/>
+                        <Group content={this.getContent('email')} eClick={this.showThread}/>
+                        <Group content={this.getContent('broadcast')} title="Broadcasts" eClick={this.showThread}/>
                     </div>
                     <aside className="panel">
                         <div className="main-head">
@@ -49,10 +54,20 @@ class Inbox extends Component {
                                 return <Alert alert={a}/>
                             })}
                         </div>
-                        <Promotion content={this.getContent('promotion')} />
-                        <Transaction bill={this.getContent('bill')} receipt={this.getContent('transaction')} order={this.getContent('status')}/>
+                        <Promotion content={this.getContent('promotion')} gClick={this.showGenre}/>
+                        <Transaction bill={this.getContent('bill')} tClick={this.showItem} receipt={this.getContent('transaction')} order={this.getContent('status')}/>
                     </aside>
                 </main>
+                {this.state.genreList.length !== 0 && 
+                        <div className="pop-layer" onClick={this.clearItem}>
+                            <GenreModal list={this.state.genreList} genre={this.state.genre}/>
+                        </div>
+                }
+                {this.state.emailList.length !== 0 &&
+                        <div className="pop-layer" onClick={this.clearItem}>                            
+                            <ThreadModal list={this.state.emailList}/>
+                        </div>
+                } 
             </div>
         );
     }

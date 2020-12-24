@@ -10,7 +10,7 @@ class Alert extends Component {
     render() { 
         var alert = this.props.alert;
         return ( 
-            this.state.show && <div className="alert-card">
+            <div className={"alert-card "+this.state.show}>
                 <button className="alert-close" onClick={this.closeAlert}>✕</button>
                 <div className="alert-meta">
                     <span className="alert-from">{alert.from.name}</span>

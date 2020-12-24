@@ -24,8 +24,6 @@
 		&:first-child{
 			background-color: $black;
 			z-index: 50;
-			//border-width: 2px;
-			border-style: solid;
 		}
 		&:not(:first-child){
 			background-color: rgba($black,0.3);			
@@ -86,11 +84,18 @@
         border-bottom-left-radius: $std-padding;
         background-color: darken($orange,20%);
         padding: 0.9vw 1vw;
+        transition: all 0.1s ease-in-out;
         &:first-child{background-color: darken($purple,20%);}
         &:nth-child(2){background-color: darken($seagreen,15%);}
         &:nth-child(3){background-color: darken($cobalt,30%);}
         &:last-child{
             margin-bottom: 0;
+        }
+        &.true{
+            display: block;
+        }
+        &.false{
+            display: none;
         }
     }
     &-meta{
@@ -130,40 +135,6 @@
     }
 }
 
-.order{
-    &-card{
-        background-color: $black;
-        padding: 1vw 1.1vw;
-        width: 100%;
-        border-radius: $std-padding;
-    }
-    &-meta{
-        @extend .email-meta;
-    }
-    &-subject{
-        @extend .email-from;
-    }
-    &-body{
-        margin-top: 0.5vw;
-        line-height: 1.1em;
-        h1{
-            color: $white;
-            margin-bottom: 0.4vw;
-        }
-        h2,h3{
-            font-size: 0.8em;
-            margin-bottom: 0.3vw;
-        }
-        h5{
-            display: inline-block;
-            color: $yellow;
-        }
-    }
-    &-time{
-        @extend .email-time;
-    }
-}
-
 .genre{
     width: 22vw;
     margin-bottom: 2vw;
@@ -177,6 +148,7 @@
         background-color: $black;
         border-radius: $std-padding;
         overflow: hidden;
+        cursor: pointer;
         &:nth-child(3n){
             margin-right: 0;
         }
@@ -226,6 +198,41 @@
     }
 }
 
+.order{
+    &-card{
+        background-color: $black;
+        padding: 1vw 1.1vw;
+        width: 100%;
+        border-radius: $std-padding;
+    }
+    &-meta{
+        @extend .email-meta;
+    }
+    &-subject{
+        @extend .email-from;
+    }
+    &-body{
+        margin-top: 0.5vw;
+        line-height: 1.1em;
+        h1{
+            color: $white;
+            margin-bottom: 0.4vw;
+        }
+        h2,h3{
+            font-size: 0.8em;
+            margin-bottom: 0.3vw;
+        }
+        h5{
+            display: inline-block;
+            color: $yellow;
+        }
+    }
+    &-time{
+        @extend .email-time;
+    }
+}
+
+
 .view{
     &-box{
         margin-bottom: 8%;
@@ -268,26 +275,22 @@
 .pop{
     &-layer{
         position: fixed;
+        display: flex;
+        align-items: center;
         background: rgba($black,0.75);
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
-        z-index: 2;
+        z-index: 51;
         transition: all 0.08s ease-in-out;
     }
     &-modal{
-        position: fixed;
-        background-color: $faint-white;
-        color: $dark;
-        width: 50%;
-        top: 5%;
-        left: 25%;
-        max-height: 90%;
-        overflow: scroll;
-        border-radius: 1.25*$std-padding;
-        padding: 2.5% 3%;
-        z-index: 3;
+        width: 100%;
+        max-height: 100%;
+        overflow-y: scroll;
+        padding: 2.5% 0;
+        z-index: 52;
     }
     &-section{
         @extend %box-tag;
@@ -304,7 +307,7 @@
         }
     }
     &-title{
-        margin-bottom: 2%;
+        margin-bottom: 1.5vw;
         font-weight: 900;
         font-size: 2.1em;
         letter-spacing: -1px;
@@ -415,6 +418,104 @@
         }
     }
 }
+
+.genre{
+    &-modal{
+        @extend .pop-modal;
+    }
+    &-wrapper{
+        width: 45%;
+        margin: 0 auto;
+    }
+    &-title{
+        @extend .pop-title;
+        span{
+            text-transform: capitalize;
+            color: $yellow;
+        }
+    }
+}
+.promo{
+    &-card{
+        background-color: $dark;
+        padding: 1.9vw 2vw;
+        margin-bottom: 1.5vw;
+        border-radius: 0.9*$std-padding;
+    }
+    &-meta{
+        @extend .email-meta;
+    }
+    &-from{
+        @extend .email-from;
+    }
+    &-time{
+        @extend .email-time;
+    }
+    &-subject{
+        @extend .email-subject;
+    }
+}
+
+.thread{
+    &-modal{
+        @extend .pop-modal;
+    }
+    &-wrapper{
+        width: 45%;
+        margin: 0 auto;
+    }
+    &-title{
+        @extend .pop-title;
+        color: $yellow;
+    }
+    &-card{
+        @extend .promo-card;
+        line-height: 1.4em;
+        position: relative;
+    }
+    &-meta{
+        @extend .email-meta;
+    }
+    &-from{
+        @extend .email-from;
+        font-size: 1em;
+        & > span{
+            color: $cobalt;
+        }
+    }
+    &-to > span{
+        color: $cobalt;
+    }
+    &-cc > span:first-child{
+        color: $cobalt;
+    }
+    &-time{
+        @extend .email-time;
+        font-size: 1em;
+    }
+    &-body{
+        margin-top: 1vw;
+    }
+}
+
+.email{
+    &-action{
+        position: absolute;
+        right: calc(-5*#{$std-padding} - 1vw);
+        top: 0;
+    }
+    &-each{
+        display: block;
+        border-radius: 0.75*$std-padding;
+        width: 5*$std-padding;
+        height: 5*$std-padding;
+        margin-bottom: 0.75vw;
+        border: none;
+        text-decoration: none;
+        background-color: $grey;
+    }
+}
+
 
 .article{
     &-view{

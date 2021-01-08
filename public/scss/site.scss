@@ -264,7 +264,20 @@ body{
 		display: inline-block;
 		width: 16vw;
 		height: 12vw;
-		margin: 0 1.5vw 1.4vw 0;		
+		margin: 0 1.5vw 1.4vw 0;
+		&:hover{
+			.email-card{
+				&:first-child{
+					top: -0.2vw;
+				}
+				&:nth-child(2){
+					top: 1.1vw;
+				}
+				&:nth-child(3){
+					top: 2.3vw;
+				}
+			}
+		}	
 	}
 	@media screen and (min-width: 700px) {
 		margin-bottom: 0.6vw;

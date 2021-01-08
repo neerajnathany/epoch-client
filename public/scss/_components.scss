@@ -20,13 +20,17 @@
 		padding: 1.25vw 1.4vw;
 		border-radius: 5%;
 		position: absolute;
-		left: 0;
+        transition: all 0.1s ease-in-out;
+        background-color: $black;
+        display: flex;
+        flex-direction: column;
 		&:first-child{
-			background-color: $black;
-			z-index: 50;
+            top: 0;
+            z-index: 50;
+            transform-origin: 50% 100%;
 		}
 		&:not(:first-child){
-			background-color: rgba($black,0.3);			
+			opacity: 0.3;		
 		}
 		&:nth-child(2){
 			transform: scale(0.9) translate(-56.67%,0);
@@ -64,11 +68,11 @@
 		font-weight: 300;
 		color: rgba($light-white,0.5);
 		font-size: 0.9em;
-		line-height: 1.25em;
+		line-height: 1.28em;
 		text-overflow: ellipsis;
-		overflow: hidden;
+        overflow: hidden;
 		display: -webkit-box;
-		-webkit-line-clamp: 4; /* number of lines to show */
+		-webkit-line-clamp: 5; /* number of lines to show */
 		-webkit-box-orient: vertical;
 	}
 }
@@ -149,6 +153,10 @@
         border-radius: $std-padding;
         overflow: hidden;
         cursor: pointer;
+        transition: all 0.1s ease-in-out;
+        &:hover{
+            transform: scale(1.05);
+        }
         &:nth-child(3n){
             margin-right: 0;
         }
@@ -175,6 +183,7 @@
     margin-bottom: 2vw;
     width: 22vw;
     &-card{
+        cursor: pointer;
         display: inline-block;
         width: 10.375vw;
         padding: 1vw 1.2vw 1.2vw;
@@ -186,6 +195,11 @@
         overflow: hidden;
         &:nth-child(2n){
             margin-right: 0;
+        }
+        &:hover{
+            .tran-count{
+                color: $yellow;
+            }
         }
     }
     &-count{
@@ -273,24 +287,34 @@
 }
 
 .pop{
-    &-layer{
+    &-layer1{
         position: fixed;
-        display: flex;
-        align-items: center;
-        background: rgba($black,0.75);
+        background: rgba($black,0.8);
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
         z-index: 51;
-        transition: all 0.08s ease-in-out;
+    }
+    &-layer2{
+        position: fixed;
+        width: calc(45% + 5*#{$std-padding} + 1vw);
+        display: flex;
+        align-items: center;
+        left: calc((100% - 45%)/2);
+        top: 0;
+        bottom: 0;
+        z-index: 52;
     }
     &-modal{
         width: 100%;
         max-height: 100%;
         overflow-y: scroll;
-        padding: 2.5% 0;
-        z-index: 52;
+        padding: 2.5vw 0;
+        z-index: 53;
+    }
+    &-wrapper{
+        width: calc(100% - 5*#{$std-padding} - 1vw);
     }
     &-section{
         @extend %box-tag;
@@ -419,13 +443,12 @@
     }
 }
 
-.genre{
+.general{
     &-modal{
         @extend .pop-modal;
     }
     &-wrapper{
-        width: 45%;
-        margin: 0 auto;
+        @extend .pop-wrapper;
     }
     &-title{
         @extend .pop-title;
@@ -435,12 +458,14 @@
         }
     }
 }
-.promo{
+.item{
     &-card{
         background-color: $dark;
         padding: 1.9vw 2vw;
         margin-bottom: 1.5vw;
         border-radius: 0.9*$std-padding;
+        line-height: 1.4em;
+        position: relative;
     }
     &-meta{
         @extend .email-meta;
@@ -461,17 +486,13 @@
         @extend .pop-modal;
     }
     &-wrapper{
-        width: 45%;
-        margin: 0 auto;
+        @extend .pop-wrapper;
     }
     &-title{
         @extend .pop-title;
-        color: $yellow;
     }
     &-card{
-        @extend .promo-card;
-        line-height: 1.4em;
-        position: relative;
+        @extend .item-card;        
     }
     &-meta{
         @extend .email-meta;
@@ -480,14 +501,14 @@
         @extend .email-from;
         font-size: 1em;
         & > span{
-            color: $cobalt;
+            color: $yellow;
         }
     }
     &-to > span{
-        color: $cobalt;
+        color: $yellow;
     }
     &-cc > span:first-child{
-        color: $cobalt;
+        color: $yellow;
     }
     &-time{
         @extend .email-time;
@@ -513,6 +534,12 @@
         border: none;
         text-decoration: none;
         background-color: $grey;
+        &:hover{
+            background-color: $dark;
+            .email-icon{
+                fill: $yellow;
+            }
+        }
     }
 }
 
@@ -586,7 +613,6 @@
     }
 }
 
-
 .home{
     padding-top: 16vh;
     height: 100vh;
@@ -594,9 +620,9 @@
     text-align: center;
     box-sizing: inherit;
     &-header{
-        width: 70%;
+        width: 75%;
         margin: 0 auto;
-        font-size: 3.5em;
+        font-size: 3.1em;
         font-weight: 800;
         color: $white;
         letter-spacing: -4px;
@@ -609,12 +635,15 @@
         border-radius: 2*$std-padding;
         background-color: $grey;
     }
+    &-title{
+        font-size: 0.9em;
+    }
     &-highlight{
-        color: $cobalt;
+        color: $seagreen;
     }
     &-cta{
         display: inline-block;
-        background-color: $cobalt;
+        background-color: $seagreen;
         padding: $std-padding 1.9*$std-padding;
         letter-spacing: -0.5px;
         color: $white;
@@ -626,7 +655,19 @@
         margin-top: 4*$std-padding;
         font-size: 1.25em;
         &:hover{
-            background-color: darken($cobalt,7.5%);
+            background-color: darken($seagreen,7.5%);
+        }
+    }
+    &-ps{
+        width: 60%;
+        margin: 2*$std-padding auto;
+        font-size: 0.8em;
+        line-height: 1.2em;
+        color: $lighta-white;
+    }
+    @media screen and (max-width: 700px) {
+        &-title{
+            letter-spacing: -2px;
         }
     }
     @media screen and (min-width: 700px) {
@@ -638,6 +679,12 @@
         &-name{
             padding: 3*$std-padding 4*$std-padding 1.5*$std-padding;
             border-radius: 2.5*$std-padding;
+        }
+        &-title{
+            font-size: 1em;
+        }
+        &-ps{
+            width: 20%;
         }
     }
 }

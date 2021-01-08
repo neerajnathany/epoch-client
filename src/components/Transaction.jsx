@@ -8,11 +8,11 @@ class Transaction extends Component {
             <div className="tran">
                 <h5 className="group-title">Your transactions</h5>
                 <div>
-                    <div className="tran-card" onClick={()=> this.props.tClick(this.props.bill)}>
+                    <div className="tran-card" onClick={()=> this.props.tClick(this.props.bill,"Pending invoices")}>
                         <h5 className="tran-count">{this.props.bill.length}</h5>
                         <h6 className="tran-name">pending invoices</h6>
                     </div>
-                    <div className="tran-card" onClick={()=> this.props.tClick(this.props.receipt)}>
+                    <div className="tran-card" onClick={()=> this.props.tClick(this.props.receipt,"Receipts")}>
                     <h5 className="tran-count">{this.props.receipt.length}</h5>
                         <h6 className="tran-name">receipts</h6>
                     </div>

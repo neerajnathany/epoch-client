@@ -6,18 +6,19 @@ import Promotion from './components/Promotion';
 import Transaction from './components/Transaction';
 import GenreModal from './components/GenreModal';
 import ThreadModal from './components/ThreadModal';
+import Empty from './components/Empty';
 import axios from 'axios';
 
 class Inbox extends Component {
 
-    state = { emails:[], genreList: [], genre: null, emailList:[] };
+    state = { emails:[], genreList: [], title: null, emailList:[] };
 
     componentDidMount(){
         this.getInbox();
     }
 
     getInbox = async () => {
-        const response = await axios.create({baseURL: 'http://localhost:5000/',}).get('/inbox');
+        const response = await axios.create({baseURL: 'https://epoch-backend.herokuapp.com/',}).get('/inbox');
         this.setState({emails:response.data});
     }
 
@@ -29,7 +30,7 @@ class Inbox extends Component {
         })
     };
 
-    showGenre = (list,genre) => {this.setState({genreList: list, genre:genre});}
+    showGenre = (list,title) => {this.setState({genreList: list, title:title});}
     showThread = (thread) => {this.setState({emailList: thread});}
     clearItem = () => {this.setState({genreList: [], genre:null, emailList: []});}
 
@@ -42,8 +43,8 @@ class Inbox extends Component {
                         <div className="main-head">
                             <h2 className="main-title">Emails</h2>
                         </div>
-                        <Group content={this.getContent('email')} eClick={this.showThread}/>
-                        <Group content={this.getContent('broadcast')} title="Broadcasts" eClick={this.showThread}/>
+                        {this.state.emails.length ? <div><Group content={this.getContent('email')} eClick={this.showThread}/>
+                        <Group content={this.getContent('broadcast')} title="Broadcasts" eClick={this.showThread}/></div> : <Empty/>}
                     </div>
                     <aside className="panel">
                         <div className="main-head">
@@ -55,18 +56,24 @@ class Inbox extends Component {
                             })}
                         </div>
                         <Promotion content={this.getContent('promotion')} gClick={this.showGenre}/>
-                        <Transaction bill={this.getContent('bill')} tClick={this.showItem} receipt={this.getContent('transaction')} order={this.getContent('status')}/>
+                        <Transaction bill={this.getContent('bill')} tClick={this.showGenre} receipt={this.getContent('transaction')} order={this.getContent('status')}/>
                     </aside>
                 </main>
                 {this.state.genreList.length !== 0 && 
-                        <div className="pop-layer" onClick={this.clearItem}>
-                            <GenreModal list={this.state.genreList} genre={this.state.genre}/>
+                    <div>
+                        <div className="pop-layer1" onClick={this.clearItem}></div>
+                        <div className="pop-layer2">
+                            <GenreModal list={this.state.genreList} title={this.state.title}/>
                         </div>
+                    </div>
                 }
                 {this.state.emailList.length !== 0 &&
-                        <div className="pop-layer" onClick={this.clearItem}>                            
+                    <div>
+                        <div className="pop-layer1" onClick={this.clearItem}></div>
+                        <div className="pop-layer2">                            
                             <ThreadModal list={this.state.emailList}/>
                         </div>
+                    </div>
                 } 
             </div>
         );

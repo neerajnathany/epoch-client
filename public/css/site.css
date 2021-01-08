@@ -423,6 +423,11 @@ textarea {
   40% {
     box-shadow: 0 2.5em 0 0; } }
 
+.email-icon {
+  width: 1.2em;
+  height: 1.2em;
+  fill: #fff; }
+
 .empty {
   text-align: center;
   padding: 25vh 0; }
@@ -441,12 +446,16 @@ textarea {
   padding: 1.25vw 1.4vw;
   border-radius: 5%;
   position: absolute;
-  left: 0; }
+  transition: all 0.1s ease-in-out;
+  background-color: #000;
+  display: flex;
+  flex-direction: column; }
   .email-card:first-child {
-    background-color: #000;
-    z-index: 50; }
+    top: 0;
+    z-index: 50;
+    transform-origin: 50% 100%; }
   .email-card:not(:first-child) {
-    background-color: rgba(0, 0, 0, 0.3); }
+    opacity: 0.3; }
   .email-card:nth-child(2) {
     transform: scale(0.9) translate(-56.67%, 0);
     top: 1vw;
@@ -458,19 +467,19 @@ textarea {
     .email-card:nth-child(3) + * {
       display: none; }
 
-.email-meta, .alert-meta, .order-meta, .promo-meta, .thread-meta {
+.email-meta, .alert-meta, .order-meta, .item-meta, .thread-meta {
   display: flex; }
 
-.email-from, .alert-from, .order-subject, .promo-from, .thread-from {
+.email-from, .alert-from, .order-subject, .item-from, .thread-from {
   font-size: 0.8em; }
 
-.email-time, .alert-time, .order-time, .promo-time, .thread-time {
+.email-time, .alert-time, .order-time, .item-time, .thread-time {
   font-weight: 100;
   font-size: 0.8em;
   color: #ffffff77;
   margin-left: auto; }
 
-.email-subject, .promo-subject {
+.email-subject, .item-subject {
   margin: 0.4vw 0 0.75vw;
   font-weight: 600;
   font-size: 1.2em;
@@ -480,11 +489,11 @@ textarea {
   font-weight: 300;
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.9em;
-  line-height: 1.25em;
+  line-height: 1.28em;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 5;
   /* number of lines to show */
   -webkit-box-orient: vertical; }
 
@@ -549,7 +558,10 @@ textarea {
     background-color: #000;
     border-radius: 8px;
     overflow: hidden;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: all 0.1s ease-in-out; }
+    .genre-card:hover {
+      transform: scale(1.05); }
     .genre-card:nth-child(3n) {
       margin-right: 0; }
     .genre-card:nth-child(3n+1):nth-last-child(-n+3), .genre-card:nth-child(3n+1):nth-last-child(-n+3) ~ * {
@@ -569,6 +581,7 @@ textarea {
   margin-bottom: 2vw;
   width: 22vw; }
   .tran-card {
+    cursor: pointer;
     display: inline-block;
     width: 10.375vw;
     padding: 1vw 1.2vw 1.2vw;
@@ -580,6 +593,8 @@ textarea {
     overflow: hidden; }
     .tran-card:nth-child(2n) {
       margin-right: 0; }
+    .tran-card:hover .tran-count {
+      color: #ffae00; }
   .tran-count {
     font-size: 2.5em;
     font-weight: 700;
@@ -638,24 +653,34 @@ textarea {
   margin-right: 6px;
   vertical-align: bottom; }
 
-.pop-layer {
+.pop-layer1 {
   position: fixed;
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.8);
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: 51;
-  transition: all 0.08s ease-in-out; }
+  z-index: 51; }
 
-.pop-modal, .genre-modal, .thread-modal {
+.pop-layer2 {
+  position: fixed;
+  width: calc(45% + 5*8px + 1vw);
+  display: flex;
+  align-items: center;
+  left: calc((100% - 45%)/2);
+  top: 0;
+  bottom: 0;
+  z-index: 52; }
+
+.pop-modal, .general-modal, .thread-modal {
   width: 100%;
   max-height: 100%;
   overflow-y: scroll;
-  padding: 2.5% 0;
-  z-index: 52; }
+  padding: 2.5vw 0;
+  z-index: 53; }
+
+.pop-wrapper, .general-wrapper, .thread-wrapper {
+  width: calc(100% - 5*8px - 1vw); }
 
 .pop-section, .article-section {
   font-size: 0.9em;
@@ -669,7 +694,7 @@ textarea {
   .pop-section:hover, .article-section:hover {
     background-color: #d42d2d; }
 
-.pop-title, .genre-title, .thread-title, .article-title {
+.pop-title, .general-title, .thread-title, .article-title {
   margin-bottom: 1.5vw;
   font-weight: 900;
   font-size: 2.1em;
@@ -762,44 +787,31 @@ textarea {
     color: #ddd; }
 
 @media screen and (min-width: 700px) {
-  .pop-modal, .genre-modal, .thread-modal {
+  .pop-modal, .general-modal, .thread-modal {
     border-radius: 12px; } }
 
-.genre-wrapper {
-  width: 45%;
-  margin: 0 auto; }
-
-.genre-title span {
+.general-title span {
   text-transform: capitalize;
   color: #ffae00; }
 
-.promo-card, .thread-card {
+.item-card, .thread-card {
   background-color: #1f1f1f;
   padding: 1.9vw 2vw;
   margin-bottom: 1.5vw;
-  border-radius: 7.2px; }
-
-.thread-wrapper {
-  width: 45%;
-  margin: 0 auto; }
-
-.thread-title {
-  color: #ffae00; }
-
-.thread-card {
+  border-radius: 7.2px;
   line-height: 1.4em;
   position: relative; }
 
 .thread-from {
   font-size: 1em; }
   .thread-from > span {
-    color: #2190ff; }
+    color: #ffae00; }
 
 .thread-to > span {
-  color: #2190ff; }
+  color: #ffae00; }
 
 .thread-cc > span:first-child {
-  color: #2190ff; }
+  color: #ffae00; }
 
 .thread-time {
   font-size: 1em; }
@@ -821,6 +833,10 @@ textarea {
   border: none;
   text-decoration: none;
   background-color: #383838; }
+  .email-each:hover {
+    background-color: #1f1f1f; }
+    .email-each:hover .email-icon {
+      fill: #ffae00; }
 
 .article-view {
   width: 44vw;
@@ -880,9 +896,9 @@ textarea {
   text-align: center;
   box-sizing: inherit; }
   .home-header {
-    width: 70%;
+    width: 75%;
     margin: 0 auto;
-    font-size: 3.5em;
+    font-size: 3.1em;
     font-weight: 800;
     color: #fff;
     letter-spacing: -4px; }
@@ -893,11 +909,13 @@ textarea {
     padding: 16px 20px 12px;
     border-radius: 16px;
     background-color: #383838; }
+  .home-title {
+    font-size: 0.9em; }
   .home-highlight {
-    color: #2190ff; }
+    color: #00a187; }
   .home-cta {
     display: inline-block;
-    background-color: #2190ff;
+    background-color: #00a187;
     padding: 8px 15.2px;
     letter-spacing: -0.5px;
     color: #fff;
@@ -909,7 +927,16 @@ textarea {
     margin-top: 32px;
     font-size: 1.25em; }
     .home-cta:hover {
-      background-color: #007dfa; }
+      background-color: #007b67; }
+  .home-ps {
+    width: 60%;
+    margin: 16px auto;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    color: #ffffff99; }
+  @media screen and (max-width: 700px) {
+    .home-title {
+      letter-spacing: -2px; } }
   @media screen and (min-width: 700px) {
     .home {
       padding-top: 20vh; }
@@ -918,7 +945,11 @@ textarea {
         font-size: 5em; }
       .home-name {
         padding: 24px 32px 12px;
-        border-radius: 20px; } }
+        border-radius: 20px; }
+      .home-title {
+        font-size: 1em; }
+      .home-ps {
+        width: 20%; } }
 
 body {
   font-family: 'Circular Std', sans-serif;
@@ -1077,27 +1108,27 @@ body {
     display: inline-block; }
     .group-sender.sender-0 .email-card:first-child {
       border-color: rgba(33, 144, 255, 0.5); }
-      .group-sender.sender-0 .email-card:first-child .email-from, .group-sender.sender-0 .email-card:first-child .alert-from, .group-sender.sender-0 .email-card:first-child .order-subject, .group-sender.sender-0 .email-card:first-child .promo-from, .group-sender.sender-0 .email-card:first-child .thread-from {
+      .group-sender.sender-0 .email-card:first-child .email-from, .group-sender.sender-0 .email-card:first-child .alert-from, .group-sender.sender-0 .email-card:first-child .order-subject, .group-sender.sender-0 .email-card:first-child .item-from, .group-sender.sender-0 .email-card:first-child .thread-from {
         color: #2190ff; }
     .group-sender.sender-1 .email-card:first-child {
       border-color: rgba(255, 174, 0, 0.5); }
-      .group-sender.sender-1 .email-card:first-child .email-from, .group-sender.sender-1 .email-card:first-child .alert-from, .group-sender.sender-1 .email-card:first-child .order-subject, .group-sender.sender-1 .email-card:first-child .promo-from, .group-sender.sender-1 .email-card:first-child .thread-from {
+      .group-sender.sender-1 .email-card:first-child .email-from, .group-sender.sender-1 .email-card:first-child .alert-from, .group-sender.sender-1 .email-card:first-child .order-subject, .group-sender.sender-1 .email-card:first-child .item-from, .group-sender.sender-1 .email-card:first-child .thread-from {
         color: #ffae00; }
     .group-sender.sender-2 .email-card:first-child {
       border-color: rgba(255, 174, 0, 0.5); }
-      .group-sender.sender-2 .email-card:first-child .email-from, .group-sender.sender-2 .email-card:first-child .alert-from, .group-sender.sender-2 .email-card:first-child .order-subject, .group-sender.sender-2 .email-card:first-child .promo-from, .group-sender.sender-2 .email-card:first-child .thread-from {
+      .group-sender.sender-2 .email-card:first-child .email-from, .group-sender.sender-2 .email-card:first-child .alert-from, .group-sender.sender-2 .email-card:first-child .order-subject, .group-sender.sender-2 .email-card:first-child .item-from, .group-sender.sender-2 .email-card:first-child .thread-from {
         color: #ffae00; }
     .group-sender.sender-3 .email-card:first-child {
       border-color: rgba(163, 86, 51, 0.5); }
-      .group-sender.sender-3 .email-card:first-child .email-from, .group-sender.sender-3 .email-card:first-child .alert-from, .group-sender.sender-3 .email-card:first-child .order-subject, .group-sender.sender-3 .email-card:first-child .promo-from, .group-sender.sender-3 .email-card:first-child .thread-from {
+      .group-sender.sender-3 .email-card:first-child .email-from, .group-sender.sender-3 .email-card:first-child .alert-from, .group-sender.sender-3 .email-card:first-child .order-subject, .group-sender.sender-3 .email-card:first-child .item-from, .group-sender.sender-3 .email-card:first-child .thread-from {
         color: #a35633; }
     .group-sender.sender-4 .email-card:first-child {
       border-color: #00a187; }
-      .group-sender.sender-4 .email-card:first-child .email-from, .group-sender.sender-4 .email-card:first-child .alert-from, .group-sender.sender-4 .email-card:first-child .order-subject, .group-sender.sender-4 .email-card:first-child .promo-from, .group-sender.sender-4 .email-card:first-child .thread-from {
+      .group-sender.sender-4 .email-card:first-child .email-from, .group-sender.sender-4 .email-card:first-child .alert-from, .group-sender.sender-4 .email-card:first-child .order-subject, .group-sender.sender-4 .email-card:first-child .item-from, .group-sender.sender-4 .email-card:first-child .thread-from {
         color: #00a187; }
     .group-sender.sender-5 .email-card:first-child {
       border-color: #d84242; }
-      .group-sender.sender-5 .email-card:first-child .email-from, .group-sender.sender-5 .email-card:first-child .alert-from, .group-sender.sender-5 .email-card:first-child .order-subject, .group-sender.sender-5 .email-card:first-child .promo-from, .group-sender.sender-5 .email-card:first-child .thread-from {
+      .group-sender.sender-5 .email-card:first-child .email-from, .group-sender.sender-5 .email-card:first-child .alert-from, .group-sender.sender-5 .email-card:first-child .order-subject, .group-sender.sender-5 .email-card:first-child .item-from, .group-sender.sender-5 .email-card:first-child .thread-from {
         color: #d84242; }
   .group-email {
     position: relative;
@@ -1105,6 +1136,12 @@ body {
     width: 16vw;
     height: 12vw;
     margin: 0 1.5vw 1.4vw 0; }
+    .group-email:hover .email-card:first-child {
+      top: -0.2vw; }
+    .group-email:hover .email-card:nth-child(2) {
+      top: 1.1vw; }
+    .group-email:hover .email-card:nth-child(3) {
+      top: 2.3vw; }
   @media screen and (min-width: 700px) {
     .group {
       margin-bottom: 0.6vw; }
